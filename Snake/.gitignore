@@ -1,0 +1,7 @@
+# Visual Studio
+.vscode/
+.vs/
+*.vsidx
+*.user
+*.userosscache
+*.sln.docstates
