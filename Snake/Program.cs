@@ -1,12 +1,30 @@
 ﻿using System;
+using System.Threading;
 
 class Program
 {
     static void Main(string[] args)
     {
         Console.CursorVisible = false;
+        Wąż wąż = new Wąż(5, 5);
 
-        Obstakel obstakel = new Obstakel
+        while (true)
+        {
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(true).Key;
+                wąż.ChangeDirection(key);
+            }
+
+            Console.Clear();
+            wąż.Move();
+            wąż.Draw();
+
+            Thread.Sleep(200);
+        }
+    
+
+Obstakel obstakel = new Obstakel
         {
             Xpos = 10,
             Ypos = 5,
