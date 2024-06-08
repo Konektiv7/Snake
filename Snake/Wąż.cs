@@ -25,6 +25,12 @@ public class Wąż
         Pozycje.RemoveAt(Pozycje.Count - 1);
     }
 
+    public void Grow()
+    {
+        var ogon = Pozycje[Pozycje.Count - 1];
+        Pozycje.Add((ogon.X, ogon.Y));
+    }
+
     public void Draw()
     {
         foreach (var segment in Pozycje)
@@ -35,23 +41,23 @@ public class Wąż
         }
         Console.ResetColor();
     }
+
     public void ChangeDirection(ConsoleKey key)
     {
         switch (key)
         {
             case ConsoleKey.UpArrow:
-                Kierunek = (0, -1);
+                if (Kierunek != (0, 1)) Kierunek = (0, -1);
                 break;
             case ConsoleKey.DownArrow:
-                Kierunek = (0, 1);
+                if (Kierunek != (0, -1)) Kierunek = (0, 1);
                 break;
             case ConsoleKey.LeftArrow:
-                Kierunek = (-1, 0);
+                if (Kierunek != (1, 0)) Kierunek = (-1, 0);
                 break;
             case ConsoleKey.RightArrow:
-                Kierunek = (1, 0);
+                if (Kierunek != (-1, 0)) Kierunek = (1, 0);
                 break;
         }
     }
-
 }
