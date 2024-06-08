@@ -7,6 +7,8 @@ class Program
     {
         Console.CursorVisible = false;
         Wąż wąż = new Wąż(5, 5);
+        Obstakel jedzenie = new Obstakel { Xpos = 10, Ypos = 10, SchermKleur = ConsoleColor.Red, Karacter = "X" };
+        int punkty = 0;
 
         while (true)
         {
@@ -16,27 +18,22 @@ class Program
                 wąż.ChangeDirection(key);
             }
 
-            Console.Clear();
             wąż.Move();
+
+            if (wąż.Pozycje[0].X == jedzenie.Xpos && wąż.Pozycje[0].Y == jedzenie.Ypos)
+            {
+                wąż.Grow();
+                jedzenie = new Obstakel { Xpos = new Random().Next(Console.WindowWidth), Ypos = new Random().Next(Console.WindowHeight), SchermKleur = ConsoleColor.Red, Karacter = "X" };
+                punkty++;
+            }
+
+            Console.Clear();
             wąż.Draw();
+            DrawObstakel(jedzenie);
+            DisplayScore(punkty);
 
             Thread.Sleep(200);
         }
-    
-
-Obstakel obstakel = new Obstakel
-        {
-            Xpos = 10,
-            Ypos = 5,
-            SchermKleur = ConsoleColor.Red,
-            Karacter = "X"
-        };
-
-        DrawObstakel(obstakel);
-
-        Console.SetCursorPosition(0, Console.WindowHeight - 1);
-        Console.WriteLine("Press any key to exit...");
-        Console.ReadKey();
     }
 
     static void DrawObstakel(Obstakel obstakel)
@@ -44,6 +41,14 @@ Obstakel obstakel = new Obstakel
         Console.SetCursorPosition(obstakel.Xpos, obstakel.Ypos);
         Console.ForegroundColor = obstakel.SchermKleur;
         Console.Write(obstakel.Karacter);
+        Console.ResetColor();
+    }
+
+    static void DisplayScore(int score)
+    {
+        Console.SetCursorPosition(0, 0);
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write($"Score: {score}");
         Console.ResetColor();
     }
 }
